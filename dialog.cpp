@@ -14,6 +14,7 @@
 #include <QProcess>
 #include <QFileDialog>
 #include <QDebug>
+#include <QVector>
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// \brief Dialog::Dialog
 /// \param parent
@@ -47,7 +48,7 @@ Dialog::Dialog(QWidget *parent)
     QString filePath;
 
     // Читаем пути из файла и присваиваем их текстовой переменной
-    while (!in.atEnd()) {
+    while (!in.atEnd()) {  // начало чикла через пути файлов
         filePath = in.readLine();
         qDebug() << "Прочитан путь из файла:" << filePath;
 
@@ -162,9 +163,47 @@ d:
             }
             else {        std::cout << "Программа считает что это не 1." << std::endl;    } //  меняем на это не 1
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////            
-            
- 
+// запишем нейроны и сигнал в файл         /home/viktor/my_projects_qt_2/Funktsiya_Resheniya_2/neurons_and_signal.txt    
+//  QFile file("/home/viktor/my_projects_qt_2/Funktsiya_Resheniya_2/neurons_and_signal.txt");
+//    if (file.open(QIODevice::WriteOnly)) {
+//        QDataStream out(&file);
+//        for (const auto& element : list_of_neurons) {
+//            out << element;
+//        }
+//        file.close();
+//    }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                fstream file3;
+                file3.open(
+                    // NOTE: сигналы 2
+                                        // 3:
+                    // FIXME: файлы надо менять!
+                    Nazvaniye_fayla_s_neyronami_i_signalom.toStdString().c_str() 
+             //    Nazvaniye_fayla_s_neyronami_i_signalom
+                 //   "/home/viktor/my_projects_qt_2/Sgenerirovannye_fayly/0-2/neurons_and_signal.txt"
+                 //"/home/viktor/my_projects_qt_2/Funktsiya_Resheniya_2/neurons_and_signal.txt"
+                   ,ios_base::out);
+                
+                vector<unsigned long long>::iterator itr2;
+                
+for (itr2=list_of_neurons.begin(); itr2 != list_of_neurons.begin() + 250; ++itr2) {
+    file3 << *itr2 << endl;
+}
+                
+             file3.close();
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////// запишем //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// \brief file
+       // самый новый файл с нейронами и сигналами  
+    QFile file("/home/viktor/my_projects_qt_2/Funktsiya_Resheniya_2/название файла с нейронами и сигналами.txt");
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
     
+    QTextStream out(&file);
+    out << Nazvaniye_fayla_s_neyronami_i_signalom ;// "\n";
+    file.close(); 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///     
 /// 
 ///         
     } // цикл
